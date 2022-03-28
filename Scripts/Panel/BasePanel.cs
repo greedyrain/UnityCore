@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public abstract class BasePanel : MonoBehaviour
 {
-    public bool isShow;
+    bool isShow;
     CanvasGroup canvasGroup;
 
     float alphaSpeed = 10;
