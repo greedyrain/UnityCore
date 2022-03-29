@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     CharacterController cc;
+    public int id;
+    public int HP, maxHP,atk;
     public float moveH, moveV;
     public float moveSpeed, rotateSpeed;
     Animator anim;
-    bool isDead;
+    bool isDead = false;
     public Transform weaponContainer;
     // Start is called before the first frame update
     void Start()
@@ -85,7 +87,23 @@ public class Player : MonoBehaviour
 
     public void Init(int id)
     {
+        HP = GameDataManager.Instance.HerosData[id - 1].hp;
+        maxHP = GameDataManager.Instance.HerosData[id - 1].hp;
         string weaponPath = GameDataManager.Instance.WeaponsData[id - 1].res;
         Instantiate(Resources.Load<GameObject>(weaponPath), weaponContainer);
+
+    }
+
+    public void GetHurt(int damage)
+    {
+        if (isDead)
+            return;
+        HP -= damage;
+        print(HP);
+        if (HP <= 0)
+        {
+            HP = 0;
+            anim.SetBool("IsDead", isDead);
+        }
     }
 }

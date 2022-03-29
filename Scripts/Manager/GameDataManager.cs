@@ -39,12 +39,20 @@ public class GameDataManager
     {
         get { return weaponsData; }
     }
+
+    private List<ZombieData> zombiesData;
+    public List<ZombieData> ZombiesData
+    {
+        get { return zombiesData; }
+    }
+
     private GameDataManager()
     {
         musicData = JsonManager.Instance.LoadData<MusicData>("MusicData");
         herosData = JsonManager.Instance.LoadData<List<HeroData>>("HerosData");
         playerData = JsonManager.Instance.LoadData<PlayerData>("PlayerData");
         weaponsData = JsonManager.Instance.LoadData<List<WeaponData>>("WeaponsData");
+        zombiesData = JsonManager.Instance.LoadData<List<ZombieData>>("ZombiesData");
     }
 
     public void SaveMusicData()

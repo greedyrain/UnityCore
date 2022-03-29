@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InGameData
 {
-    public int selectHeroID = 1;
+    public int selectHeroID = 8;
     public int protectZoneHP = 100;
     public int inGameMoney = 0;
     public int maxWave = 10;
