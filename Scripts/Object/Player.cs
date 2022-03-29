@@ -40,27 +40,52 @@ public class Player : MonoBehaviour
         }
 
         //人物转动相关：
-        if (Input.GetMouseButton(1))
-            transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * 10, transform.up);
+        //在GameScene中，鼠标左右移动就能够改变人物移动的方向；
+        if (SceneManager.GetActiveScene().name == "GameScene")
+            transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * 5, transform.up);
+        //如果在BeginScene中（选择人物界面），要转动人物，则需要按下右键；
+        else if (SceneManager.GetActiveScene().name == "BeginScene")
+        {
+            if (Input.GetMouseButton(1))
+                transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * -5, transform.up);
+        }
 
         SetAnimate();
     }
 
     void SetAnimate()
     {
+        //在GameScene中才会设置动画；
         if (Input.GetMouseButtonDown(0) && SceneManager.GetActiveScene().name == "GameScene")
             anim.SetTrigger("Attack");
         anim.SetBool("IsDead", isDead);
     }
 
+    //刀攻击触发的事件；
     public void KnifeEvent()
     {
         ProtectZone.Instance.GetHurt(10);
     }
 
+    public void HandGunShootEvent()
+    {
+        //生成子弹
+        GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
+        bullet.transform.position = weaponContainer.position;
+        bullet.transform.rotation = transform.rotation;
+    }
+
+    public void HeavyGunShootEvent()
+    {
+        //生成子弹
+        GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
+        bullet.transform.position = weaponContainer.position;
+        bullet.transform.rotation = transform.rotation;
+    }
+
     public void Init(int id)
     {
         string weaponPath = GameDataManager.Instance.WeaponsData[id - 1].res;
-        Instantiate(Resources.Load<GameObject>(weaponPath),weaponContainer);
+        Instantiate(Resources.Load<GameObject>(weaponPath), weaponContainer);
     }
 }

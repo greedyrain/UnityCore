@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
         CameraFollow();
     }
 
+    //生成游戏人物，start时会调用；
     public void Init(int roleID)
     {
         playerObj = Instantiate(Resources.Load<Player>($"Role/{roleID}"));
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
         playerObj.Init(GameDataManager.Instance.HerosData[roleID - 1].defaultWeapon);
     }
 
+    //设置音乐音量，供外部调用；
     public void SetMusicVolume(float volume)
     {
         audioSource.volume = volume;
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
         GameDataManager.Instance.SaveMusicData();
     }
 
+    //设置是否静音，供外部调用；
     public void SetMusicOnOrOff(bool isOn)
     {
         audioSource.mute = !isOn;
@@ -63,9 +66,8 @@ public class GameManager : MonoBehaviour
     {
         cameraDistance += Input.GetAxis("Mouse ScrollWheel");//通过滚轮控制相机距离
         cameraDistance = Mathf.Clamp(cameraDistance, 4, 15);//设置相机最远最近距离
-        if (Input.GetMouseButton(1))
-            cameraAngle -= Input.GetAxis("Mouse Y") * 5;
-        
+        cameraAngle -= Input.GetAxis("Mouse Y") * 2;
+
         cameraAngle = Mathf.Clamp(cameraAngle, 10, 70);//夹紧函数控制相机角度边界值;
 
         cameraPos = playerObj.transform.position + playerObj.transform.up * overHeadDis;//计算出距离头顶的位置

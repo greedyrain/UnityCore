@@ -7,7 +7,7 @@ using TMPro;
 public class HeroChoosePanel : BasePanel
 {
     public Button leftBtn, rightBtn, buyBtn, backBtn, startBtn;
-    public TMP_Text description,money,unlockMoney;
+    public TMP_Text description, money, unlockMoney;
     GameObject playerObj;
     Transform heroCreatePos;
     int heroID = 1;
@@ -52,6 +52,7 @@ public class HeroChoosePanel : BasePanel
             GameDataManager.Instance.InGameData.selectHeroID = heroID;
             UIManager.Instance.ShowPanel<MapChoosePanel>();
             UIManager.Instance.HidePanel<HeroChoosePanel>();
+            Destroy(playerObj);
         });
         heroCreatePos = GameObject.Find("HeroCreatPos").transform;
         CreatHero(heroID);
@@ -62,7 +63,7 @@ public class HeroChoosePanel : BasePanel
         //生成人物模型，设置位置；
         Destroy(playerObj);
         playerObj = Instantiate(Resources.Load<GameObject>(GameDataManager.Instance.HerosData[id - 1].res),
-                                heroCreatePos.position,heroCreatePos.rotation);
+                                heroCreatePos.position, heroCreatePos.rotation);
         playerObj.GetComponent<Player>().Init(GameDataManager.Instance.HerosData[id - 1].defaultWeapon);
         //修改界面上的信息；
         description.text = GameDataManager.Instance.HerosData[id - 1].tips;
