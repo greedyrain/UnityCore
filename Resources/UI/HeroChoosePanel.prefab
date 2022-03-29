@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.90588236, g: 0.7921569, b: 0.21960784, a: 1}
+    m_PressedColor: {r: 0.67058825, g: 0.19215687, b: 0.19215687, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -191,6 +191,9 @@ MonoBehaviour:
   buyBtn: {fileID: 4777485382561772800}
   backBtn: {fileID: 4777485383619390126}
   startBtn: {fileID: 4777485381932835560}
+  description: {fileID: 4777485383112380345}
+  money: {fileID: 4777485382585714602}
+  unlockMoney: {fileID: 4777485382497946851}
 --- !u!1 &4777485381932835562
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,11 +777,11 @@ RectTransform:
   m_Father: {fileID: 4777485381855102706}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -415}
-  m_SizeDelta: {x: 459.0058, y: 113.0404}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 10}
+  m_SizeDelta: {x: 459.0058, y: 113.040405}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &4777485382561772814
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1757,8 +1760,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.9056604, g: 0.79325753, b: 0.21787111, a: 1}
+    m_PressedColor: {r: 0.6698113, g: 0.19272871, b: 0.19272871, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1

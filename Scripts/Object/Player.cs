@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     public float moveSpeed, rotateSpeed;
     Animator anim;
     bool isDead;
+    public Transform weaponContainer;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +24,20 @@ public class Player : MonoBehaviour
         //人物移动相关：
         moveH = Input.GetAxis("Horizontal");
         moveV = Input.GetAxis("Vertical");
-        anim.SetFloat("SpeedV", moveV);
-        anim.SetFloat("SpeedH", moveH);
-        cc.SimpleMove(transform.forward * moveV * moveSpeed);
-        cc.SimpleMove(transform.right * moveH * moveSpeed);
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            anim.SetFloat("SpeedV", moveV);
+            anim.SetFloat("SpeedH", moveH);
+            cc.SimpleMove(transform.forward * moveV * moveSpeed);
+            cc.SimpleMove(transform.right * moveH * moveSpeed);
+        }
+        else
+        {
+            anim.SetFloat("SpeedV", moveV * 0.5f);
+            anim.SetFloat("SpeedH", moveH * 0.5f);
+            cc.SimpleMove(transform.forward * moveV * moveSpeed * 0.5f);
+            cc.SimpleMove(transform.right * moveH * moveSpeed * 0.5f);
+        }
 
         //人物转动相关：
         if (Input.GetMouseButton(1))
@@ -36,13 +48,19 @@ public class Player : MonoBehaviour
 
     void SetAnimate()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && SceneManager.GetActiveScene().name == "GameScene")
             anim.SetTrigger("Attack");
         anim.SetBool("IsDead", isDead);
     }
 
     public void KnifeEvent()
     {
-        print("123123");
+        ProtectZone.Instance.GetHurt(10);
+    }
+
+    public void Init(int id)
+    {
+        string weaponPath = GameDataManager.Instance.WeaponsData[id - 1].res;
+        Instantiate(Resources.Load<GameObject>(weaponPath),weaponContainer);
     }
 }

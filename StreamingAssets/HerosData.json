@@ -1,0 +1,10 @@
+[
+{"id":1,"res":"Role/1","defaultWeapon":1,"lockMoney":0,"hp":100,"tips":"Engineer"},
+{"id":2,"res":"Role/2","defaultWeapon":3,"lockMoney":30,"hp":100,"tips":"Flammer"},
+{"id":3,"res":"Role/3","defaultWeapon":7,"lockMoney":50,"hp":100,"tips":"Gunner"},
+{"id":4,"res":"Role/4","defaultWeapon":4,"lockMoney":80,"hp":100,"tips":"Infantry"},
+{"id":5,"res":"Role/5","defaultWeapon":2,"lockMoney":100,"hp":100,"tips":"Medic"},
+{"id":6,"res":"Role/6","defaultWeapon":6,"lockMoney":150,"hp":100,"tips":"Officer"},
+{"id":7,"res":"Role/7","defaultWeapon":5,"lockMoney":200,"hp":100,"tips":"Scout"},
+{"id":8,"res":"Role/8","defaultWeapon":8,"lockMoney":500,"hp":100,"tips":"Sniper"}
+]

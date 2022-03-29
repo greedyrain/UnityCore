@@ -13,6 +13,7 @@ public class BeginPanel : BasePanel
             //进入角色选择面板
             UIManager.Instance.ShowPanel<HeroChoosePanel>();
             UIManager.Instance.HidePanel<BeginPanel>();
+            CameraObj.Instance.SetCameraAnimation("TurnLeft");
         });
         settingBtn.onClick.AddListener(() =>
         {

@@ -1,0 +1,10 @@
+[
+{"id":1,"res":"Weapon/Wrench","atk":1,"animator":"","bulletNum":0,"type":1,"range":0,"hitBack":1,"hitEff":"eff/1"},
+{"id":2,"res":"Weapon/Knife","atk":2,"animator":"","bulletNum":0,"type":1,"range":0,"hitBack":1,"hitEff":"eff/1"},
+{"id":3,"res":"Weapon/Heavy_Machinegun","atk":10,"animator":"","bulletNum":50,"type":1,"range":5,"hitBack":1,"hitEff":"eff/1"},
+{"id":4,"res":"Weapon/Grenade_Launcher","atk":20,"animator":"","bulletNum":5,"type":1,"range":3,"hitBack":2,"hitEff":"eff/1"},
+{"id":5,"res":"Weapon/Handgun","atk":5,"animator":"","bulletNum":10,"type":1,"range":5,"hitBack":1,"hitEff":"eff/1"},
+{"id":6,"res":"Weapon/Revolver","atk":20,"animator":"","bulletNum":6,"type":1,"range":5,"hitBack":2,"hitEff":"eff/1"},
+{"id":7,"res":"Weapon/Shotgun","atk":50,"animator":"","bulletNum":10,"type":2,"range":5,"hitBack":2,"hitEff":"eff/1"},
+{"id":8,"res":"Weapon/Sniper_Rifle","atk":50,"animator":"","bulletNum":5,"type":2,"range":10,"hitBack":2,"hitEff":"eff/1"}
+]

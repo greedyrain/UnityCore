@@ -4,16 +4,32 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager instance;
+    public static GameManager Instance => instance;
+
     public Transform startPos;
     Player playerObj;
     Camera camera;
-    Vector3 cameraPos,cameraDir;
-    float cameraDistance = 5,cameraAngle = 30,overHeadDis = 3;
+    Vector3 cameraPos, cameraDir;
+    float cameraDistance = 8, cameraAngle = 20, overHeadDis = 3;
+    AudioSource audioSource;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        Init(4);
+        Init(GameDataManager.Instance.InGameData.selectHeroID);
         camera = Camera.main;
+        audioSource = GetComponent<AudioSource>();
+        SetMusicVolume(GameDataManager.Instance.MusicData.musicVolume);
+        SetMusicOnOrOff(GameDataManager.Instance.MusicData.isMusicOn);
     }
 
     // Update is called once per frame
@@ -26,18 +42,32 @@ public class GameManager : MonoBehaviour
     {
         playerObj = Instantiate(Resources.Load<Player>($"Role/{roleID}"));
         playerObj.transform.position = startPos.position;
+        playerObj.Init(GameDataManager.Instance.HerosData[roleID - 1].defaultWeapon);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        audioSource.volume = volume;
+        GameDataManager.Instance.MusicData.musicVolume = volume;
+        GameDataManager.Instance.SaveMusicData();
+    }
+
+    public void SetMusicOnOrOff(bool isOn)
+    {
+        audioSource.mute = !isOn;
+        GameDataManager.Instance.MusicData.isMusicOn = isOn;
+        GameDataManager.Instance.SaveMusicData();
     }
 
     void CameraFollow()
     {
         cameraDistance += Input.GetAxis("Mouse ScrollWheel");//通过滚轮控制相机距离
-        cameraDistance = Mathf.Clamp(cameraDistance,3, 10);//设置相机最远最近距离
-        if (Input.GetKeyDown(KeyCode.UpArrow))//设置相机俯视角度
-            cameraAngle += 10;
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-            cameraAngle -= 10;
-        cameraAngle = Mathf.Clamp(cameraAngle, 10, 70);//夹紧函数控制相机角度边界值
-                                                       //；
+        cameraDistance = Mathf.Clamp(cameraDistance, 4, 15);//设置相机最远最近距离
+        if (Input.GetMouseButton(1))
+            cameraAngle -= Input.GetAxis("Mouse Y") * 5;
+        
+        cameraAngle = Mathf.Clamp(cameraAngle, 10, 70);//夹紧函数控制相机角度边界值;
+
         cameraPos = playerObj.transform.position + playerObj.transform.up * overHeadDis;//计算出距离头顶的位置
         cameraDir = Quaternion.AngleAxis(cameraAngle, playerObj.transform.right) * -playerObj.transform.forward;//
         cameraPos += cameraDir * cameraDistance;

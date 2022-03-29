@@ -33,7 +33,7 @@ public class MapChoosePanel : BasePanel
             //进入游戏界面；
             UIManager.Instance.HidePanel<MapChoosePanel>();
             UIManager.Instance.ShowPanel<GamePanel>();
-            //SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("GameScene");
         });
     }
 }
