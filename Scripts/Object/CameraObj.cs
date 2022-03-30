@@ -67,7 +67,7 @@ public class CameraObj : MonoBehaviour
                 cameraDistance += Input.GetAxis("Mouse ScrollWheel");//通过滚轮控制相机距离
                 cameraDistance = Mathf.Clamp(cameraDistance, 4, 15);//设置相机最远最近距离
                 cameraAngle -= Input.GetAxis("Mouse Y") * 2;
-                cameraAngle = Mathf.Clamp(cameraAngle, 10, 70);//夹紧函数控制相机角度边界值;
+                cameraAngle = Mathf.Clamp(cameraAngle, -90, 90);//夹紧函数控制相机角度边界值;
 
                 cameraPos = playerObj.transform.position + playerObj.transform.up * overHeadDis;//计算出距离头顶的位置
                 cameraDir = Quaternion.AngleAxis(cameraAngle, playerObj.transform.right) * -playerObj.transform.forward;//
@@ -77,7 +77,7 @@ public class CameraObj : MonoBehaviour
                 break;
             case E_CameraMode.Aim:
                 cameraAngle -= Input.GetAxis("Mouse Y") * 2;
-                cameraAngle = Mathf.Clamp(cameraAngle, 10, 40);//夹紧函数控制相机角度边界值;
+                cameraAngle = Mathf.Clamp(cameraAngle, -90, 90);//夹紧函数控制相机角度边界值;
                 cameraDistance = 2;
                 cameraPos = playerObj.transform.position + playerObj.transform.up * overHeadDis;//计算出距离头顶的位置
                 cameraPos += playerObj.transform.right;

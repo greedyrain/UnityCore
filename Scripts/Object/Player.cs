@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     Animator anim;
     bool isDead = false;
     public Transform weaponContainer;
+    Ray cameraRay;
+    RaycastHit hitInfo;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +47,9 @@ public class Player : MonoBehaviour
         //人物转动相关：
         //在GameScene中，鼠标左右移动就能够改变人物移动的方向；
         if (SceneManager.GetActiveScene().name == "GameScene")
+        {
             transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * 5, transform.up);
+        }
         //如果在BeginScene中（选择人物界面），要转动人物，则需要按下右键；
         else if (SceneManager.GetActiveScene().name == "BeginScene")
         {
@@ -82,20 +86,31 @@ public class Player : MonoBehaviour
     public void HandGunShootEvent()
     {
         //生成子弹
+        //GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
+        //bullet.transform.position = weaponContainer.position;
+        //bullet.transform.rotation *= Quaternion.LookRotation(transform.forward);
         GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
         bullet.transform.position = weaponContainer.position;
-        bullet.transform.rotation *= Quaternion.LookRotation(transform.forward);
-        print("1");
-
+        cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));
+        if (Physics.Raycast(cameraRay, out hitInfo, 1000))
+            bullet.transform.LookAt(hitInfo.point);
+        else
+            bullet.transform.LookAt(cameraRay.GetPoint(1000));
     }
 
     public void HeavyGunShootEvent()
     {
         //生成子弹
+        //GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
+        //bullet.transform.position = weaponContainer.position;
+        //bullet.transform.rotation *= Quaternion.LookRotation(transform.forward);
         GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
         bullet.transform.position = weaponContainer.position;
-        bullet.transform.rotation *= Quaternion.LookRotation(transform.forward);
-        print("2");
+        cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));
+        if (Physics.Raycast(cameraRay, out hitInfo, 1000))
+            bullet.transform.LookAt(hitInfo.point);
+        else
+            bullet.transform.LookAt(cameraRay.GetPoint(1000));
     }
 
     public void Init(int id)
