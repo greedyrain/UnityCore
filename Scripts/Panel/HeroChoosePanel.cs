@@ -43,6 +43,8 @@ public class HeroChoosePanel : BasePanel
             //回到BeginPanel
             UIManager.Instance.ShowPanel<BeginPanel>();
             UIManager.Instance.HidePanel<HeroChoosePanel>();
+            CameraObj.Instance.SetCameraAnimation("TurnRight");
+            Destroy(playerObj);
             //相机运动回去
         });
 

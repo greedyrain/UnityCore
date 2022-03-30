@@ -20573,7 +20573,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &440888313
 AudioSource:
@@ -30701,7 +30701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8492122209135723017, guid: 3cd6af4066a7c4c1f9e52836551cac1d, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8492122209135723017, guid: 3cd6af4066a7c4c1f9e52836551cac1d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -64269,7 +64269,7 @@ Transform:
   - {fileID: 968297844}
   - {fileID: 146344984}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1449823736
 PrefabInstance:
@@ -65184,6 +65184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128b2dad21ee645b680e59d2dbdc53ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraMode: 0
 --- !u!1001 &1457945362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92863,7 +92864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8492122209135723017, guid: 3cd6af4066a7c4c1f9e52836551cac1d, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8492122209135723017, guid: 3cd6af4066a7c4c1f9e52836551cac1d, type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     CharacterController cc;
     public int id;
-    public int HP, maxHP,atk;
+    public int HP, maxHP, atk;
     public float moveH, moveV;
     public float moveSpeed, rotateSpeed;
     Animator anim;
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        CameraObj.Instance.SetPlayer(this);
     }
 
     // Update is called once per frame
@@ -61,6 +62,15 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && SceneManager.GetActiveScene().name == "GameScene")
             anim.SetTrigger("Attack");
         anim.SetBool("IsDead", isDead);
+        switch (CameraObj.Instance.cameraMode)
+        {
+            case E_CameraMode.Aim:
+                anim.SetBool("IsAim", true);
+                break;
+            case E_CameraMode.Normal:
+                anim.SetBool("IsAim", false);
+                break;
+        }
     }
 
     //刀攻击触发的事件；
@@ -74,7 +84,9 @@ public class Player : MonoBehaviour
         //生成子弹
         GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
         bullet.transform.position = weaponContainer.position;
-        bullet.transform.rotation = transform.rotation;
+        bullet.transform.rotation *= Quaternion.LookRotation(transform.forward);
+        print("1");
+
     }
 
     public void HeavyGunShootEvent()
@@ -82,7 +94,8 @@ public class Player : MonoBehaviour
         //生成子弹
         GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
         bullet.transform.position = weaponContainer.position;
-        bullet.transform.rotation = transform.rotation;
+        bullet.transform.rotation *= Quaternion.LookRotation(transform.forward);
+        print("2");
     }
 
     public void Init(int id)
