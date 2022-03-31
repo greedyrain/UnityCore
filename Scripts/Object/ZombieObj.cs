@@ -64,6 +64,9 @@ public class ZombieObj : MonoBehaviour
                 anim.SetTrigger("Attack");
             }
         }
+
+        moveSpeed = agent.speed;
+        anim.SetFloat("MoveSpeed", moveSpeed);
     }
 
     public void GetHurt(int damage)//受伤的方法；
@@ -76,6 +79,7 @@ public class ZombieObj : MonoBehaviour
             HP = 0;
             isDead = true;
             anim.SetBool("IsDead", isDead);//死亡后摧毁物体；
+            GameManager.Instance.ReduceZombieAmount();
             Destroy(gameObject, 4);
         }
     }

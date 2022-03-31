@@ -86,30 +86,24 @@ public class Player : MonoBehaviour
     public void HandGunShootEvent()
     {
         //生成子弹
-        //GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
-        //bullet.transform.position = weaponContainer.position;
-        //bullet.transform.rotation *= Quaternion.LookRotation(transform.forward);
         GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
-        bullet.transform.position = weaponContainer.position;
-        cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));
-        if (Physics.Raycast(cameraRay, out hitInfo, 1000))
+        bullet.transform.position = weaponContainer.position;//设置子弹的初始位置
+        cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
+        if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
             bullet.transform.LookAt(hitInfo.point);
-        else
+        else//如果没有碰到物体，则让子弹朝着屏幕中心射线的终点飞去；
             bullet.transform.LookAt(cameraRay.GetPoint(1000));
     }
 
     public void HeavyGunShootEvent()
     {
         //生成子弹
-        //GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
-        //bullet.transform.position = weaponContainer.position;
-        //bullet.transform.rotation *= Quaternion.LookRotation(transform.forward);
         GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
-        bullet.transform.position = weaponContainer.position;
-        cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));
-        if (Physics.Raycast(cameraRay, out hitInfo, 1000))
+        bullet.transform.position = weaponContainer.position;//设置子弹的初始位置
+        cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
+        if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
             bullet.transform.LookAt(hitInfo.point);
-        else
+        else//如果没有碰到物体，则让子弹朝着屏幕中心射线的终点飞去；
             bullet.transform.LookAt(cameraRay.GetPoint(1000));
     }
 

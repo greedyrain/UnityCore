@@ -7,22 +7,21 @@ using TMPro;
 public class GamePanel : BasePanel
 {
     public Button menuBtn;
-    public TMP_Text waveText, moneyText,hpText;
+    public TMP_Text waveText, moneyText,hpText,zombieText;
     public Image hpImg;
-    private int HP, maxHP,remainWave,maxWave;
+    private int HP, maxHP,currentWave,maxWave;
     public override void Init()
     {
         HP = GameDataManager.Instance.InGameData.protectZoneHP;
         maxHP = GameDataManager.Instance.InGameData.protectZoneHP;
-        remainWave = GameDataManager.Instance.InGameData.remainWave;
-        maxWave = GameDataManager.Instance.InGameData.maxWave;
+        maxWave = GameDataManager.Instance.LevelData[GameDataManager.Instance.InGameData.levelID-1].maxWave;
         menuBtn.onClick.AddListener(() =>
         {
             UIManager.Instance.ShowPanel<SettingPanel>();
         });
 
         UpdateHP(HP);
-        SetWaveText(remainWave);
+        SetWaveText(currentWave);
         SetMoneyText(GameDataManager.Instance.InGameData.inGameMoney);
     }
 
@@ -41,6 +40,7 @@ public class GamePanel : BasePanel
 
     public void SetWaveText(int wave)
     {
-        waveText.text = $"{remainWave} / {maxWave}";
+        currentWave = wave;
+        waveText.text = $"{currentWave} / {maxWave}";
     }
 }

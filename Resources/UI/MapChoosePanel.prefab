@@ -676,6 +676,7 @@ MonoBehaviour:
   startBtn: {fileID: 4721688516018477595}
   mapName: {fileID: 4721688515056132461}
   mapDescription: {fileID: 4721688516443183763}
+  mapPreview: {fileID: 4721688515969341555}
 --- !u!1 &4721688515969341553
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,6 +46,18 @@ public class GameDataManager
         get { return zombiesData; }
     }
 
+    private List<ZombieSpawnData> zombieSpawnData;
+    public List<ZombieSpawnData> ZombieSpawnData
+    {
+        get { return zombieSpawnData; }
+    }
+
+    private List<LevelData> levelData;
+    public List<LevelData> LevelData
+    {
+        get { return levelData; }
+    }
+
     private GameDataManager()
     {
         musicData = JsonManager.Instance.LoadData<MusicData>("MusicData");
@@ -53,6 +65,8 @@ public class GameDataManager
         playerData = JsonManager.Instance.LoadData<PlayerData>("PlayerData");
         weaponsData = JsonManager.Instance.LoadData<List<WeaponData>>("WeaponsData");
         zombiesData = JsonManager.Instance.LoadData<List<ZombieData>>("ZombiesData");
+        zombieSpawnData = JsonManager.Instance.LoadData<List<ZombieSpawnData>>("ZombieSpawnData");
+        levelData = JsonManager.Instance.LoadData<List<LevelData>>("LevelData");
     }
 
     public void SaveMusicData()

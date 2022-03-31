@@ -7,7 +7,6 @@ public class BulletObj : MonoBehaviour
     Player bulletOwner;
     public float moveSpeed;
     int damage;
-    Vector3 bulletDir;
     // Start is called before the first frame update
     void Start()
     {
