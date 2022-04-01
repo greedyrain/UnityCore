@@ -9,11 +9,11 @@ public class ZombieObj : MonoBehaviour
     //进入一定范围后会攻击目标；
     //有一定的检测范围，如果该范围内只存在玩家时，会优先攻击玩家，而如果同时存在玩家和目标点，则会优先攻击目标点；
     public int id;
-    public int HP, maxHP, atk;
-    float moveSpeed, rotateSpeed, atkCD;
+    public int HP, maxHP, atk,money;
+    float moveSpeed, atkCD, remainAtkCD;
 
-    public float checkRadius,damageRadius,attackRange;
-    bool isDead, toPlayer,toZone,attacking;
+    public float checkRadius, damageRadius, attackRange;
+    bool isDead, toPlayer, toZone, attacking;
 
     Transform target;
     public Transform attackCenter;
@@ -33,6 +33,9 @@ public class ZombieObj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+            return;
+
         if (!toZone)//没有靠近保护区则进入该分支；
         {
             //检测周围的物体；
@@ -55,29 +58,43 @@ public class ZombieObj : MonoBehaviour
             }
         }
 
-        //检测是否有目标进入攻击范围，有则进入攻击状态；
-        foreach (Collider coll in Physics.OverlapSphere(transform.position,attackRange))
+        remainAtkCD -= Time.deltaTime;
+        //检测是否有目标进入攻击范围，是否冷却完成，是则进入攻击状态；
+        foreach (Collider coll in Physics.OverlapSphere(transform.position, attackRange))
         {
-            if (coll.CompareTag("ProtectZone") || coll.CompareTag("Player"))
+            if (remainAtkCD<=0)
             {
-                attacking = true;
-                anim.SetTrigger("Attack");
+                if (coll.CompareTag("ProtectZone") || coll.CompareTag("Player"))//如果包含僵尸的攻击目标，则进行攻击，重置CD；
+                {
+                    remainAtkCD = atkCD;
+                    attacking = true;
+                    anim.SetTrigger("Attack");
+                }
             }
         }
 
+        //设置移动动画；
         moveSpeed = agent.speed;
         anim.SetFloat("MoveSpeed", moveSpeed);
     }
 
     public void GetHurt(int damage)//受伤的方法；
     {
+        //如果死亡就不会再受到伤害；
+        if (isDead)
+            return;
+
+        //没有死亡，则判定伤害；
         HP -= damage;
-        print($"收到伤害：{damage}");
-        print("僵尸掉血");
+        //当血量归零时，进入死亡状态；
         if (HP <= 0)
         {
+            //死亡时，玩家获得该僵尸提供的金钱奖励；
+            GameDataManager.Instance.InGameData.inGameMoney += money;
             HP = 0;
             isDead = true;
+            agent.speed = 0;//停止僵尸的移动；
+            agent.isStopped = true;
             anim.SetBool("IsDead", isDead);//死亡后摧毁物体；
             GameManager.Instance.ReduceZombieAmount();
             Destroy(gameObject, 4);
@@ -93,18 +110,17 @@ public class ZombieObj : MonoBehaviour
                 coll.GetComponent<ProtectZone>().GetHurt(atk);
             if (coll.CompareTag("Player"))
                 coll.GetComponent<Player>().GetHurt(atk);
-            print("Attack");
         }
     }
 
-    public void Init()
+    public void Init()//设置僵尸的数据；id配置在prefab上；
     {
         ZombieData data = GameDataManager.Instance.ZombiesData[id - 1];
         HP = data.HP;
         maxHP = data.HP;
         atk = data.atk;
+        money = data.money;
         moveSpeed = data.moveSpeed;
-        rotateSpeed = data.rotateSpeed;
         atkCD = data.atkCD;
     }
 

@@ -7,6 +7,7 @@ public class BulletObj : MonoBehaviour
     Player bulletOwner;
     public float moveSpeed;
     int damage;
+    public E_WeaponType type;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class BulletObj : MonoBehaviour
         audioSource.Play();
         bulletOwner = FindObjectOfType<Player>();//获取场景中的Player脚本，通过脚本获得ID，去调取枪械的伤害；
         damage = GameDataManager.Instance.WeaponsData[bulletOwner.id - 1].atk;
+        type = bulletOwner.weaponType;
         Destroy(gameObject, 3);
         //子弹的正方向，看向由屏幕中心点射出的一条线；
     }
@@ -34,5 +36,22 @@ public class BulletObj : MonoBehaviour
             //获得击中的Enemy身上的脚本，执行掉血；
             other.GetComponent<ZombieObj>().GetHurt(damage);
         }
+        if (!(other.CompareTag("Player") || other.CompareTag("ProtectZone") || other.CompareTag("Weapon")))
+        {
+            if (type == E_WeaponType.Grenade)
+            {
+                GameObject eff = Instantiate(Resources.Load<GameObject>("Effect/ExplosionEffect"));
+                eff.transform.position = transform.position;
+                foreach (Collider collider in  Physics.OverlapSphere(eff.transform.position, 5))
+                {
+                    if (collider.CompareTag("Enemy"))
+                    {
+                        collider.GetComponent<ZombieObj>().GetHurt(damage);
+                    }
+                }
+            }
+            Destroy(gameObject);
+        }
+
     }
 }

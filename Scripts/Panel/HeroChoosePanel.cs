@@ -56,6 +56,7 @@ public class HeroChoosePanel : BasePanel
             UIManager.Instance.HidePanel<HeroChoosePanel>();
             Destroy(playerObj);
         });
+        money.text = GameDataManager.Instance.PlayerData.money.ToString();
         heroCreatePos = GameObject.Find("HeroCreatPos").transform;
         CreatHero(heroID);
     }

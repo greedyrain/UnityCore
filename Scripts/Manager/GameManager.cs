@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => instance;
 
     int levelID,maxWave,currentWave=0;
-    int resetCount = 0,zombieAmount = 0;
+    public int resetCount = 0,zombieAmount = 0;
 
     public Transform startPos;
     Player playerObj;
@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        print(Application.persistentDataPath);
         Init(GameDataManager.Instance.InGameData.selectHeroID);
-        //camera = Camera.main;
         audioSource = GetComponent<AudioSource>();
         SetMusicVolume(GameDataManager.Instance.MusicData.musicVolume);
         SetMusicOnOrOff(GameDataManager.Instance.MusicData.isMusicOn);
@@ -44,12 +44,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //如果在check状态内，当僵尸的数量归零时，则触发游戏胜利；
         if (isCheck)
         {
             if (zombieAmount<=0)
             {
                 isLevelClear = true;
                 //通关；
+                UIManager.Instance.HidePanel<GamePanel>();
+                TipsPanel tipsPanel = UIManager.Instance.ShowPanel<TipsPanel>();
+                tipsPanel.ChangeText("Congratulations!", "Level Clear!", $"{GameDataManager.Instance.LevelData[levelID-1].reword}$");
+                GameDataManager.Instance.PlayerData.money += GameDataManager.Instance.LevelData[levelID - 1].reword;
+                print(GameDataManager.Instance.LevelData[levelID - 1].reword);
+                print(GameDataManager.Instance.PlayerData.money);
+                GameDataManager.Instance.SavePlayerData();
+                isCheck = false;
             }
         }
     }
@@ -82,10 +91,10 @@ public class GameManager : MonoBehaviour
     {
         //外部触发的计数器，当生成点生成完了所有的僵尸之后，会增加技术，计数器数值满足条件后（所有生成点都生成完所有僵尸）则重置生成点的数值；
         //触发该方法的条件是，波数还没有到上限；
-        if (currentWave < maxWave)
+        if (currentWave <= maxWave)
         {
             resetCount++;
-            if (resetCount == spawnList.Count)
+            if (resetCount == spawnList.Count && currentWave < maxWave)
             {
                 foreach (ZombieSpawnPos spawnPos in spawnList)
                 {
@@ -95,7 +104,8 @@ public class GameManager : MonoBehaviour
                 currentWave++;
                 UIManager.Instance.GetPanel<GamePanel>().SetWaveText(currentWave);
             }
-            if (currentWave >= maxWave)
+            //当所所有的僵尸生成点生成完所有的僵尸后，进入check状态，检查场景内所剩余的僵尸；
+            if (currentWave == maxWave && resetCount == spawnList.Count)
                 isCheck = true;
         }
     }

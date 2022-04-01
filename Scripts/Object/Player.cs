@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum E_WeaponType { Grenade,Bullet,knife}
+
 public class Player : MonoBehaviour
 {
+    private static Player instance;
+    public static Player Instance
+    {
+        get { return instance; }
+    }
+    
     CharacterController cc;
     public int id;
     public int HP, maxHP, atk;
@@ -15,6 +23,17 @@ public class Player : MonoBehaviour
     public Transform weaponContainer;
     Ray cameraRay;
     RaycastHit hitInfo;
+    List<Transform> firePosList = new List<Transform>();
+    public E_WeaponType weaponType = new E_WeaponType();
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -83,28 +102,52 @@ public class Player : MonoBehaviour
         ProtectZone.Instance.GetHurt(10);
     }
 
-    public void HandGunShootEvent()
+    public void GrenadeShootEvent()
     {
         //生成子弹
-        GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
-        bullet.transform.position = weaponContainer.position;//设置子弹的初始位置
-        cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
-        if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
-            bullet.transform.LookAt(hitInfo.point);
-        else//如果没有碰到物体，则让子弹朝着屏幕中心射线的终点飞去；
-            bullet.transform.LookAt(cameraRay.GetPoint(1000));
+        foreach (Transform pos in firePosList)
+        {
+            GameObject bullet = new GameObject();
+            switch (weaponType)
+            {
+                case E_WeaponType.Grenade:
+                    bullet = Instantiate(Resources.Load<GameObject>("Bullet/Grenade"));
+                    break;
+                case E_WeaponType.Bullet:
+                    bullet = Instantiate(Resources.Load<GameObject>("Bullet/Grenade"));
+                    break;
+            }
+            bullet.transform.position = pos.position;//设置子弹的初始位置
+            cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
+            if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
+                bullet.transform.LookAt(hitInfo.point);
+            else//如果没有碰到物体，则让子弹朝着屏幕中心射线的终点飞去；
+                bullet.transform.LookAt(cameraRay.GetPoint(1000));
+        }
     }
 
-    public void HeavyGunShootEvent()
+    public void GunShootEvent()
     {
         //生成子弹
-        GameObject bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
-        bullet.transform.position = weaponContainer.position;//设置子弹的初始位置
-        cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
-        if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
-            bullet.transform.LookAt(hitInfo.point);
-        else//如果没有碰到物体，则让子弹朝着屏幕中心射线的终点飞去；
-            bullet.transform.LookAt(cameraRay.GetPoint(1000));
+        foreach (Transform pos in firePosList)
+        {
+            GameObject bullet = new GameObject();
+            switch (weaponType)
+            {
+                case E_WeaponType.Grenade:
+                    bullet = Instantiate(Resources.Load<GameObject>("Bullet/Grenade"));
+                    break;
+                case E_WeaponType.Bullet:
+                    bullet = Instantiate(Resources.Load<GameObject>("Bullet/Grenade"));
+                    break;
+            }
+            bullet.transform.position = pos.position;//设置子弹的初始位置
+            cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
+            if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
+                bullet.transform.LookAt(hitInfo.point);
+            else//如果没有碰到物体，则让子弹朝着屏幕中心射线的终点飞去；
+                bullet.transform.LookAt(cameraRay.GetPoint(1000));
+        }
     }
 
     public void Init(int id)
@@ -127,5 +170,15 @@ public class Player : MonoBehaviour
             HP = 0;
             anim.SetBool("IsDead", isDead);
         }
+    }
+
+    public void SetFirePos(Transform firePos)
+    {
+        firePosList.Add(firePos);
+    }
+
+    public void SetWeaponType(E_WeaponType type)
+    {
+        weaponType = type;
     }
 }
