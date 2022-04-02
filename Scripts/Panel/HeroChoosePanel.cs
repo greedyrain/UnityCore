@@ -34,6 +34,13 @@ public class HeroChoosePanel : BasePanel
         buyBtn.onClick.AddListener(() =>
         {
             //判断金钱是否足够
+            if (GameDataManager.Instance.PlayerData.money >= GameDataManager.Instance.HerosData[heroID - 1].lockMoney)
+            {
+                GameDataManager.Instance.PlayerData.money -= GameDataManager.Instance.HerosData[heroID - 1].lockMoney;
+                GameDataManager.Instance.PlayerData.unlockHerosID.Add(heroID);
+                GameDataManager.Instance.SavePlayerData();
+                UpdatePanelData();
+            }
             //足够则购买该英雄
             //修改玩家数据中已解锁的英雄
         });
@@ -56,7 +63,7 @@ public class HeroChoosePanel : BasePanel
             UIManager.Instance.HidePanel<HeroChoosePanel>();
             Destroy(playerObj);
         });
-        money.text = GameDataManager.Instance.PlayerData.money.ToString();
+
         heroCreatePos = GameObject.Find("HeroCreatPos").transform;
         CreatHero(heroID);
     }
@@ -65,11 +72,29 @@ public class HeroChoosePanel : BasePanel
     {
         //生成人物模型，设置位置；
         Destroy(playerObj);
+        //创建一个人物模型
         playerObj = Instantiate(Resources.Load<GameObject>(GameDataManager.Instance.HerosData[id - 1].res),
                                 heroCreatePos.position, heroCreatePos.rotation);
+        //根据人物模型ID创建对应的武器；
         playerObj.GetComponent<Player>().Init(GameDataManager.Instance.HerosData[id - 1].defaultWeapon);
         //修改界面上的信息；
-        description.text = GameDataManager.Instance.HerosData[id - 1].tips;
-        unlockMoney.text = GameDataManager.Instance.HerosData[id - 1].lockMoney.ToString();
+        UpdatePanelData();
+    }
+
+    public void UpdatePanelData()
+    {
+        if (GameDataManager.Instance.PlayerData.unlockHerosID.Contains(heroID))
+        {
+            buyBtn.gameObject.SetActive(false);
+            startBtn.gameObject.SetActive(true);
+        }
+        else
+        {
+            buyBtn.gameObject.SetActive(true);
+            startBtn.gameObject.SetActive(false);
+        }
+        money.text = GameDataManager.Instance.PlayerData.money.ToString();
+        description.text = GameDataManager.Instance.HerosData[heroID - 1].tips;
+        unlockMoney.text = GameDataManager.Instance.HerosData[heroID - 1].lockMoney.ToString();
     }
 }

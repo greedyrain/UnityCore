@@ -50,15 +50,16 @@ public class GameManager : MonoBehaviour
             if (zombieAmount<=0)
             {
                 isLevelClear = true;
-                //通关；
+                //通关，弹出通关面板；
                 UIManager.Instance.HidePanel<GamePanel>();
                 TipsPanel tipsPanel = UIManager.Instance.ShowPanel<TipsPanel>();
-                tipsPanel.ChangeText("Congratulations!", "Level Clear!", $"{GameDataManager.Instance.LevelData[levelID-1].reword}$");
-                GameDataManager.Instance.PlayerData.money += GameDataManager.Instance.LevelData[levelID - 1].reword;
-                print(GameDataManager.Instance.LevelData[levelID - 1].reword);
-                print(GameDataManager.Instance.PlayerData.money);
+                tipsPanel.ChangeText("Congratulations!", "Level Clear!", $"{GameDataManager.Instance.LevelData[levelID-1].reward}$");
+                //通关后修改玩家的金钱；
+                GameDataManager.Instance.PlayerData.money += GameDataManager.Instance.LevelData[levelID - 1].reward;
                 GameDataManager.Instance.SavePlayerData();
                 isCheck = false;
+                //通关后解锁下一个关卡；
+                GameDataManager.Instance.PlayerData.unlockLevelID.Add(levelID + 1);
             }
         }
     }
@@ -66,8 +67,7 @@ public class GameManager : MonoBehaviour
     //生成游戏人物，start时会调用；
     public void Init(int roleID)
     {
-        playerObj = Instantiate(Resources.Load<Player>($"Role/{roleID}"));
-        playerObj.transform.position = startPos.position;
+        playerObj = Instantiate(Resources.Load<Player>($"Role/{roleID}"), startPos.position, startPos.rotation);
         playerObj.Init(GameDataManager.Instance.HerosData[roleID - 1].defaultWeapon);
     }
 

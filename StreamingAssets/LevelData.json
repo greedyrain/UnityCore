@@ -1,12 +1,12 @@
 [
-{"level":1,"maxWave":2,"levelName":"Level 1","levelDescription":"Legend has it Hemmingway won a bet with six-word short story.","mapRes":"","reword":200},
-{"level":2,"maxWave":6,"levelName":"Level 2","levelDescription":"\"For sale: baby shoes. Never worn.\"","mapRes":"","reword":300},
-{"level":3,"maxWave":7,"levelName":"Level 3","levelDescription":"His challenge was to move his audience with a few brief words.","mapRes":"","reword":400},
-{"level":4,"maxWave":8,"levelName":"Level 4","levelDescription":"The skill is in choosing the right words and allowing them to suggest far more than they say.","mapRes":"","reword":500},
-{"level":5,"maxWave":9,"levelName":"Level 5","levelDescription":"The human brain is a miraculous thing, with endless capacity for filling in the gaps.","mapRes":"","reword":600},
-{"level":6,"maxWave":10,"levelName":"Level 6","levelDescription":"The challenge of writing a piece of falsh fiction is to say enough to convey a story whisch resonates, while allowing the reader to infer further layers of meaning.","mapRes":"","reword":700},
-{"level":7,"maxWave":11,"levelName":"Level 7","levelDescription":"To boil a whole story down to a few sentences is hard, especially if you are used to writing longer stories or enen full-length novels.","mapRes":"","reword":800},
-{"level":8,"maxWave":12,"levelName":"Level 8","levelDescription":"But flash fiction is a brilliant exercise in restraint.","mapRes":"","reword":800},
-{"level":9,"maxWave":13,"levelName":"Level 9","levelDescription":"Trying your hand at it can help even longer pieces of work become sparser and elegiac.","mapRes":"","reword":900},
-{"level":10,"maxWave":14,"levelName":"Level 10","levelDescription":"The following tips will help you consider how to make your 100 words speak volumes.","mapRes":"","reword":1000}
+{"level":1,"maxWave":2,"levelName":"Level 1","levelDescription":"Legend has it Hemmingway won a bet with six-word short story.","mapRes":"","reward":200},
+{"level":2,"maxWave":6,"levelName":"Level 2","levelDescription":"\"For sale: baby shoes. Never worn.\"","mapRes":"","reward":300},
+{"level":3,"maxWave":7,"levelName":"Level 3","levelDescription":"His challenge was to move his audience with a few brief words.","mapRes":"","reward":400},
+{"level":4,"maxWave":8,"levelName":"Level 4","levelDescription":"The skill is in choosing the right words and allowing them to suggest far more than they say.","mapRes":"","reward":500},
+{"level":5,"maxWave":9,"levelName":"Level 5","levelDescription":"The human brain is a miraculous thing, with endless capacity for filling in the gaps.","mapRes":"","reward":600},
+{"level":6,"maxWave":10,"levelName":"Level 6","levelDescription":"The challenge of writing a piece of falsh fiction is to say enough to convey a story whisch resonates, while allowing the reader to infer further layers of meaning.","mapRes":"","reward":700},
+{"level":7,"maxWave":11,"levelName":"Level 7","levelDescription":"To boil a whole story down to a few sentences is hard, especially if you are used to writing longer stories or enen full-length novels.","mapRes":"","reward":800},
+{"level":8,"maxWave":12,"levelName":"Level 8","levelDescription":"But flash fiction is a brilliant exercise in restraint.","mapRes":"","reward":800},
+{"level":9,"maxWave":13,"levelName":"Level 9","levelDescription":"Trying your hand at it can help even longer pieces of work become sparser and elegiac.","mapRes":"","reward":900},
+{"level":10,"maxWave":14,"levelName":"Level 10","levelDescription":"The following tips will help you consider how to make your 100 words speak volumes.","mapRes":"","reward":1000}
 ]

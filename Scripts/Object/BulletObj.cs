@@ -42,6 +42,7 @@ public class BulletObj : MonoBehaviour
             {
                 GameObject eff = Instantiate(Resources.Load<GameObject>("Effect/ExplosionEffect"));
                 eff.transform.position = transform.position;
+                Destroy(eff, 2);
                 foreach (Collider collider in  Physics.OverlapSphere(eff.transform.position, 5))
                 {
                     if (collider.CompareTag("Enemy"))

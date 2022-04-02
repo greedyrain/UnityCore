@@ -2663,6 +2663,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotateSpeed: 0
   weaponContainer: {fileID: 2681698838186587241}
+  weaponType: 0
 --- !u!1 &2681698838186996541
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerData 
 {
-    public int[] unlockHerosID = new int[] { 1 };
+    public List<int> unlockHerosID = new List<int>() { 1};
+    public List<int> unlockLevelID = new List<int>() { 1};
     public int money = 0;
 }

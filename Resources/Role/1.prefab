@@ -382,7 +382,6 @@ GameObject:
   - component: {fileID: 7648961572481300448}
   - component: {fileID: 2131229427}
   - component: {fileID: 2131229426}
-  - component: {fileID: 1871261970713373204}
   m_Layer: 0
   m_Name: 1
   m_TagString: Player
@@ -461,13 +460,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.76
+  m_Height: 2.66
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.25, z: 0}
+  m_Center: {x: 0, y: 1.33, z: 0}
 --- !u!114 &2131229426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,28 +488,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotateSpeed: 0
   weaponContainer: {fileID: 7648961572488572200}
---- !u!195 &1871261970713373204
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7648961572488625850}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2.5
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  weaponType: 0
 --- !u!1 &7648961572488625910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,7 +2905,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7648961572488591296}
-  - component: {fileID: 1176751583}
   m_Layer: 0
   m_Name: Bip001
   m_TagString: Player
@@ -2952,24 +2929,6 @@ Transform:
   m_Father: {fileID: 7648961572488490208}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &1176751583
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7648961572488846968}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Height: 2.76
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7648961572488847382
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class UIManager
         string panelName = typeof(T).Name;
         if (panelDic.ContainsKey(panelName))
             return panelDic[panelName] as T;
-        
+
         return null;
     }
 

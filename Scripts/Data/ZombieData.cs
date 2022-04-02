@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ZombieData
 {
-    public int id, atk, HP,money;
+    public int id, atk, HP,reward;
     public float moveSpeed, rotateSpeed, atkCD;
     public string res,animator;
 }

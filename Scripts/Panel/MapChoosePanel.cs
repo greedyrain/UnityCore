@@ -63,5 +63,9 @@ public class MapChoosePanel : BasePanel
         mapName.text = GameDataManager.Instance.LevelData[id - 1].levelName;
         mapDescription.text = GameDataManager.Instance.LevelData[id - 1].levelDescription;
         mapPreview.sprite = Resources.Load<Sprite>($"{GameDataManager.Instance.LevelData[id - 1].mapRes}");
+        if (GameDataManager.Instance.PlayerData.unlockLevelID.Contains(id))
+            startBtn.gameObject.SetActive(true);
+        else
+            startBtn.gameObject.SetActive(false);
     }
 }

@@ -9,7 +9,7 @@ public class ZombieObj : MonoBehaviour
     //进入一定范围后会攻击目标；
     //有一定的检测范围，如果该范围内只存在玩家时，会优先攻击玩家，而如果同时存在玩家和目标点，则会优先攻击目标点；
     public int id;
-    public int HP, maxHP, atk,money;
+    public int HP, maxHP, atk,reward;
     float moveSpeed, atkCD, remainAtkCD;
 
     public float checkRadius, damageRadius, attackRange;
@@ -90,7 +90,8 @@ public class ZombieObj : MonoBehaviour
         if (HP <= 0)
         {
             //死亡时，玩家获得该僵尸提供的金钱奖励；
-            GameDataManager.Instance.InGameData.inGameMoney += money;
+            GameDataManager.Instance.InGameData.inGameMoney += reward;
+            UIManager.Instance.GetPanel<GamePanel>().SetMoneyText(GameDataManager.Instance.InGameData.inGameMoney);
             HP = 0;
             isDead = true;
             agent.speed = 0;//停止僵尸的移动；
@@ -119,7 +120,7 @@ public class ZombieObj : MonoBehaviour
         HP = data.HP;
         maxHP = data.HP;
         atk = data.atk;
-        money = data.money;
+        reward = data.reward;
         moveSpeed = data.moveSpeed;
         atkCD = data.atkCD;
     }

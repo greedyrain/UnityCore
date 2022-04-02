@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelData
 {
-    public int levelID, reword;
+    public int levelID, reward;
     public string levelName,levelDescription,mapRes;
     public int maxWave;
 }

@@ -7,6 +7,7 @@ public class TowerPanel : BasePanel
 {
     public Button exitBtn;
     public ScrollRect scrollRect;
+    TowerSetPos setPos;
     public override void Init()
     {
         exitBtn.onClick.AddListener(() =>
@@ -20,5 +21,21 @@ public class TowerPanel : BasePanel
     {
         base.ShowMe();
         //根据GameDataManager的Tower数据生成相应数量的TowerBtnObj;
+
+    }
+
+    public void SetTowerPos(TowerSetPos setPos)
+    {
+        this.setPos = setPos;
+    }
+
+    public void CreateButton()
+    {
+        for (int i = 0; i < GameDataManager.Instance.TowersData.Count; i++)
+        {
+            TowerButtonObj towerButtonObj = Instantiate(Resources.Load<TowerButtonObj>("Prefabs/TowerBtnObj"), scrollRect.content);
+            towerButtonObj.Init(setPos, GameDataManager.Instance.TowersData[i]);
+            print(setPos.name);
+        }
     }
 }

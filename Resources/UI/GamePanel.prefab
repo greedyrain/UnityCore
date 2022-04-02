@@ -422,8 +422,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282103781
+  m_fontColor: {r: 0.8962264, g: 0.71815753, b: 0.2325116, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -822,6 +822,7 @@ MonoBehaviour:
   waveText: {fileID: 8643905504111631314}
   moneyText: {fileID: 8643905503488667922}
   hpText: {fileID: 8643905504824065563}
+  zombieText: {fileID: 0}
   hpImg: {fileID: 8643905504434455062}
 --- !u!1 &8643905504434455060
 GameObject:
