@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 8055780732884422365}
+  muzzle: {fileID: 8055780732236476134}
 --- !u!1 &8055780732884521723
 GameObject:
   m_ObjectHideFlags: 0

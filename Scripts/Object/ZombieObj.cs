@@ -85,7 +85,9 @@ public class ZombieObj : MonoBehaviour
             return;
 
         //没有死亡，则判定伤害；
+        print("ZombieObj打印内容：" + damage);
         HP -= damage;
+        print("ZombieObj打印内容：" + HP);
         //当血量归零时，进入死亡状态；
         if (HP <= 0)
         {

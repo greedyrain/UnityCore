@@ -17,7 +17,6 @@ public class BulletObj : MonoBehaviour
         audioSource.Play();
         bulletOwner = FindObjectOfType<Player>();//获取场景中的Player脚本，通过脚本获得ID，去调取枪械的伤害；
         damage = GameDataManager.Instance.WeaponsData[bulletOwner.id - 1].atk;
-        type = bulletOwner.weaponType;
         Destroy(gameObject, 3);
         //子弹的正方向，看向由屏幕中心点射出的一条线；
     }
@@ -26,7 +25,7 @@ public class BulletObj : MonoBehaviour
     void Update()
     {
         //子弹生成时会不停向前移动；
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime,Space.Self);
+        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,6 +33,7 @@ public class BulletObj : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             //获得击中的Enemy身上的脚本，执行掉血；
+            print("BulletObj打印内容：" + damage);
             other.GetComponent<ZombieObj>().GetHurt(damage);
         }
         if (!(other.CompareTag("Player") || other.CompareTag("ProtectZone") || other.CompareTag("Weapon")))
@@ -43,7 +43,7 @@ public class BulletObj : MonoBehaviour
                 GameObject eff = Instantiate(Resources.Load<GameObject>("Effect/ExplosionEffect"));
                 eff.transform.position = transform.position;
                 Destroy(eff, 2);
-                foreach (Collider collider in  Physics.OverlapSphere(eff.transform.position, 5))
+                foreach (Collider collider in Physics.OverlapSphere(eff.transform.position, 5))
                 {
                     if (collider.CompareTag("Enemy"))
                     {

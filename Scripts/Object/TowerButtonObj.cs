@@ -21,6 +21,7 @@ public class TowerButtonObj : MonoBehaviour
     {
         if (Input.inputString == $"{hotKey.text}")
         {
+            //print("进入");
             setPos.SetTower(id);
             UIManager.Instance.HidePanel<TowerPanel>();
         }

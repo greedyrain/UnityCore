@@ -329,3 +329,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 6865764754176517803}
+  muzzle: {fileID: 3406333705768305060}
