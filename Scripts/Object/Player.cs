@@ -117,23 +117,29 @@ public class Player : MonoBehaviour
         //生成子弹
         foreach (Transform pos in firePosList)
         {
-            BulletObj bullet = new BulletObj();
             switch (weaponType)
             {
                 case E_WeaponType.Grenade:
-                    bullet = Instantiate(Resources.Load<BulletObj>("Bullet/Grenade"));
+                    BulletObj bullet = Instantiate(Resources.Load<BulletObj>("Bullet/Grenade"));
+                    bullet.SetBulletOwner(gameObject);
+                    bullet.transform.position = pos.position;//设置子弹的初始位置
+                    cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
+                    if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
+                        bullet.transform.LookAt(hitInfo.point);
+                    else//如果没有碰到物体，则让子弹朝着屏幕中心射线的终点飞去；
+                        bullet.transform.LookAt(cameraRay.GetPoint(1000));
                     break;
                 case E_WeaponType.Bullet:
                     bullet = Instantiate(Resources.Load<BulletObj>("Bullet/Bullet"));
-                    break;
-            }
-            bullet.SetBulletOwner(gameObject);
+                                bullet.SetBulletOwner(gameObject);
             bullet.transform.position = pos.position;//设置子弹的初始位置
             cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
             if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
                 bullet.transform.LookAt(hitInfo.point);
             else//如果没有碰到物体，则让子弹朝着屏幕中心射线的终点飞去；
                 bullet.transform.LookAt(cameraRay.GetPoint(1000));
+                    break;
+            }
         }
     }
 

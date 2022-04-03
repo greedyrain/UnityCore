@@ -21,13 +21,16 @@ public class ZombieObj : MonoBehaviour
     Animator anim;
     GameObject healthBar;
     Canvas healthBarCanvas;
+    AudioSource audioSource;
 
     NavMeshAgent agent;
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         healthBarCanvas = GameObject.Find("HealthBarCanvas").GetComponent<Canvas>();
         agent = GetComponent<NavMeshAgent>();
+        agent.Warp(transform.position);//将物体设置在网格内，才能够导航；
         anim = GetComponent<Animator>();
         target = GameObject.Find("ProtectZone").transform;
         agent.SetDestination(target.position);
@@ -160,5 +163,13 @@ public class ZombieObj : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(attackCenter.position, damageRadius);
+    }
+
+    public void DeadSoundEff()
+    {
+        audioSource.volume = GameDataManager.Instance.MusicData.soundVolume;
+        audioSource.mute = !GameDataManager.Instance.MusicData.isSoundOn;
+        audioSource.Play();
+        print("DeadSoundPlayed");
     }
 }

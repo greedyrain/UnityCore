@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     Player playerObj;
     AudioSource audioSource;
 
-    public List<ZombieSpawnPos> spawnList;
+    public List<ZombieSpawnPos> spawnList;//外部拖拽进list里，GameManager一开始就会将这些点一个个初始化；
     public bool isCheck = false, isLevelClear,isFail=false;
 
     private void Awake()

@@ -36,10 +36,11 @@ public class ZombieSpawnPos : MonoBehaviour
         //随机一个数，让动态实例化方法去寻找对应的资源；
         randomID = Random.Range(1, 12);
         ZombieObj zombie = Instantiate(Resources.Load<ZombieObj>($"Zombie/Zombie{randomID}"));
-        GameManager.Instance.AddZombieAmount();
         //设置实例的位置旋转信息；
         zombie.transform.position = transform.position;
-        zombie.transform.rotation = transform.rotation;
+        //zombie.transform.rotation = transform.rotation;
+        print(zombie.transform.position);
+        GameManager.Instance.AddZombieAmount();
         //重置CD，count-1
         remainSpawnCD = spawnCD;
         spawnCount--;
@@ -48,11 +49,11 @@ public class ZombieSpawnPos : MonoBehaviour
             isDone = true;
             GameManager.Instance.ResetWaveCounter();
         }
-            
     }
 
     public void Init(int levelID)
     {
+        //在GameManager中调用该方法，初始化这些生成点，从ZombieSpawnData中读取生成的CD数据；
         this.levelID = levelID;
         spawnData = GameDataManager.Instance.ZombieSpawnData[levelID - 1];
         spawnCD = spawnData.spawnCD;
