@@ -29,6 +29,10 @@ public class TowerButtonObj : MonoBehaviour
                 setPos.SetTower(id);
                 UIManager.Instance.HidePanel<TowerPanel>();
             }
+            else
+            {
+
+            }
         }
     }
 

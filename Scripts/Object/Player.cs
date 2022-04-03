@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum E_WeaponType { Grenade,Bullet,knife}
+public enum E_WeaponType { Grenade, Bullet, knife }
 
 public class Player : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     {
         get { return instance; }
     }
-    
+
     CharacterController cc;
     public int id;
     public int HP, maxHP, atk;
@@ -45,38 +45,41 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //人物移动相关：
-        moveH = Input.GetAxis("Horizontal");
-        moveV = Input.GetAxis("Vertical");
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            anim.SetFloat("SpeedV", moveV);
-            anim.SetFloat("SpeedH", moveH);
-            cc.SimpleMove(transform.forward * moveV * moveSpeed);
-            cc.SimpleMove(transform.right * moveH * moveSpeed);
-        }
-        else
-        {
-            anim.SetFloat("SpeedV", moveV * 0.5f);
-            anim.SetFloat("SpeedH", moveH * 0.5f);
-            cc.SimpleMove(transform.forward * moveV * moveSpeed * 0.5f);
-            cc.SimpleMove(transform.right * moveH * moveSpeed * 0.5f);
-        }
-
+        #region GameScene Code
         //人物转动相关：
         //在GameScene中，鼠标左右移动就能够改变人物移动的方向；
-        if (SceneManager.GetActiveScene().name == "GameScene")
+        if (SceneManager.GetActiveScene().name != "BeginScene" && !GameManager.Instance.isLevelClear && !GameManager.Instance.isFail)
         {
+            //人物移动相关：
+            moveH = Input.GetAxis("Horizontal");
+            moveV = Input.GetAxis("Vertical");
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                anim.SetFloat("SpeedV", moveV);
+                anim.SetFloat("SpeedH", moveH);
+                cc.SimpleMove(transform.forward * moveV * moveSpeed);
+                cc.SimpleMove(transform.right * moveH * moveSpeed);
+            }
+            else
+            {
+                anim.SetFloat("SpeedV", moveV * 0.5f);
+                anim.SetFloat("SpeedH", moveH * 0.5f);
+                cc.SimpleMove(transform.forward * moveV * moveSpeed * 0.5f);
+                cc.SimpleMove(transform.right * moveH * moveSpeed * 0.5f);
+            }
+            //人物转动代码
             transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * 5, transform.up);
+            SetAnimate();
         }
+
         //如果在BeginScene中（选择人物界面），要转动人物，则需要按下右键；
         else if (SceneManager.GetActiveScene().name == "BeginScene")
         {
             if (Input.GetMouseButton(1))
                 transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * -5, transform.up);
+            cc.SimpleMove(Vector3.zero);
         }
-
-        SetAnimate();
+        #endregion
     }
 
     void SetAnimate()
@@ -100,11 +103,11 @@ public class Player : MonoBehaviour
     public void KnifeEvent()
     {
         Collider[] colliders = Physics.OverlapSphere(weaponContainer.position, 1f);
-        foreach(Collider coll in colliders)
+        foreach (Collider coll in colliders)
         {
             if (coll.CompareTag("Enemy"))
             {
-                coll.GetComponent<ZombieObj>().GetHurt(GameDataManager.Instance.WeaponsData[id-1].atk);
+                coll.GetComponent<ZombieObj>().GetHurt(GameDataManager.Instance.WeaponsData[id - 1].atk);
             }
         }
     }
@@ -172,7 +175,6 @@ public class Player : MonoBehaviour
         if (isDead)
             return;
         HP -= damage;
-        print(HP);
         if (HP <= 0)
         {
             HP = 0;

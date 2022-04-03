@@ -26,16 +26,14 @@ public class CameraObj : MonoBehaviour
         cameraMode = E_CameraMode.Normal;
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "GameScene" && isPlayerSet)
+        if (SceneManager.GetActiveScene().name != "BeginScene" && isPlayerSet)
         {
-            CameraFollow();
+            if (!GameManager.Instance.isLevelClear && !GameManager.Instance.isFail)
+            {
+                CameraFollow();
+            }
         }
         if (Input.GetMouseButtonDown(1))
         {
@@ -87,7 +85,6 @@ public class CameraObj : MonoBehaviour
                 cameraObj.transform.rotation = Quaternion.LookRotation(-cameraDir);
                 break;
         }
-
     }
 
     public void SetPlayer(Player playerObj)

@@ -33,8 +33,13 @@ public class ProtectZone : MonoBehaviour
             return;
         currentHP -= damage;
         if (currentHP <= 0)
+        {
             currentHP = 0;
+            isDead = true;
+        }
         UIManager.Instance.GetPanel<GamePanel>().UpdateHP(currentHP);
+        if (isDead)
+            GameManager.Instance.isFail = true;
     }
 
     private void OnDestroy()

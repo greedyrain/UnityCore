@@ -14,7 +14,11 @@ public class UIManager
 
     private UIManager()
     {
-        canvas = GameObject.Find("Canvas").transform;
+        //canvas = GameObject.Find("Canvas").transform;
+        if (canvas == null)
+        {
+            canvas = GameObject.Instantiate(Resources.Load<GameObject>("UI/Canvas")).transform;
+        }
         GameObject.DontDestroyOnLoad(canvas.gameObject);
     }
     public T GetPanel<T>() where T:BasePanel

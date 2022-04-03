@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     AudioSource audioSource;
 
     public List<ZombieSpawnPos> spawnList;
-    public bool isCheck = false, isLevelClear;
+    public bool isCheck = false, isLevelClear,isFail=false;
 
     private void Awake()
     {
@@ -44,6 +44,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isFail)
+        {
+            UIManager.Instance.HidePanel<GamePanel>();
+            TipsPanel tipsPanel = UIManager.Instance.ShowPanel<TipsPanel>();
+            tipsPanel.ChangeText("Game Over!", "You Fail!", "0$");
+        }
         //如果在check状态内，当僵尸的数量归零时，则触发游戏胜利；
         if (isCheck)
         {

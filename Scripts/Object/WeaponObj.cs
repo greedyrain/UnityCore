@@ -13,7 +13,5 @@ public class WeaponObj : MonoBehaviour
             Player.Instance.SetFirePos(transform.GetChild(i));
         }
         Player.Instance.SetWeaponType(type);
-        print("角色名字: " + Player.Instance.name);
-        print("角色Type: " + Player.Instance.weaponType);
     }
 }
