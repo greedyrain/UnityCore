@@ -44,8 +44,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isFail && !isLevelClear)
+        {
+            Cursor.visible = false;
+        }
+
         if (isFail)
         {
+            Cursor.visible = true;
             UIManager.Instance.HidePanel<GamePanel>();
             TipsPanel tipsPanel = UIManager.Instance.ShowPanel<TipsPanel>();
             tipsPanel.ChangeText("Game Over!", "You Fail!", "0$");
@@ -56,6 +62,7 @@ public class GameManager : MonoBehaviour
             if (zombieAmount<=0)
             {
                 isLevelClear = true;
+                Cursor.visible = true;
                 //通关，弹出通关面板；
                 UIManager.Instance.HidePanel<GamePanel>();
                 TipsPanel tipsPanel = UIManager.Instance.ShowPanel<TipsPanel>();
@@ -119,10 +126,12 @@ public class GameManager : MonoBehaviour
     public void AddZombieAmount()
     {
         zombieAmount++;
+        UIManager.Instance.GetPanel<GamePanel>().SetZombieText(zombieAmount);
     }
 
     public void ReduceZombieAmount()
     {
         zombieAmount--;
+        UIManager.Instance.GetPanel<GamePanel>().SetZombieText(zombieAmount);
     }
 }

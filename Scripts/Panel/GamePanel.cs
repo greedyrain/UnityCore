@@ -43,4 +43,9 @@ public class GamePanel : BasePanel
         currentWave = wave;
         waveText.text = $"{currentWave} / {maxWave}";
     }
+
+    public void SetZombieText(int zombieCount)
+    {
+        zombieText.text = zombieCount.ToString();
+    }
 }
