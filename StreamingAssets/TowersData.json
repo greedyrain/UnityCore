@@ -1,6 +1,6 @@
 [
-{"id":1,"name":"Crossbow","cost":20,"res":"Tower/Crossbow","bulletRes":"Bullet/Arrow","atkCD":2,"checkRadius":10,"imgRes":"Image/Crossbow","hotKey":1},
-{"id":2,"name":"Canon","cost":50,"res":"Tower/Canon","bulletRes":"Bullet/Grenade","atkCD":5,"checkRadius":10,"imgRes":"Image/Canon","hotKey":2},
-{"id":3,"name":"Canon2","cost":100,"res":"Tower/Canon2","bulletRes":"Bullet/Grenade","atkCD":2.5,"checkRadius":10,"imgRes":"Image/Canon2","hotKey":3},
-{"id":4,"name":"Gatling","cost":50,"res":"Tower/Gatling","bulletRes":"Bullet/Bullet","atkCD":1,"checkRadius":10,"imgRes":"Image/Gatling","hotKey":4}
+{"id":1,"name":"Crossbow","cost":10,"res":"Tower/Crossbow","bulletRes":"Bullet/Arrow","atkCD":2,"checkRadius":10,"imgRes":"Image/Crossbow","hotKey":1,"atk":10},
+{"id":2,"name":"Canon","cost":50,"res":"Tower/Canon","bulletRes":"Bullet/Grenade","atkCD":6,"checkRadius":10,"imgRes":"Image/Canon","hotKey":2,"atk":15},
+{"id":3,"name":"Canon2","cost":100,"res":"Tower/Canon2","bulletRes":"Bullet/Grenade","atkCD":2.5,"checkRadius":10,"imgRes":"Image/Canon2","hotKey":3,"atk":30},
+{"id":4,"name":"Gatling","cost":50,"res":"Tower/Gatling","bulletRes":"Bullet/Bullet","atkCD":0.2,"checkRadius":10,"imgRes":"Image/Gatling","hotKey":4,"atk":10}
 ]

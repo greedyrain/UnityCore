@@ -34,7 +34,6 @@ public class ProtectZone : MonoBehaviour
         currentHP -= damage;
         if (currentHP <= 0)
             currentHP = 0;
-        print(currentHP);
         UIManager.Instance.GetPanel<GamePanel>().UpdateHP(currentHP);
     }
 

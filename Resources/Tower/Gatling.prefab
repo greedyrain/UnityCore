@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 1290174686092459625}
   m_Layer: 0
   m_Name: Gatling
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -328,5 +328,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160deb1de34504fafb603c6aa2549746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 4
+  checkRadius: 0
+  cost: 0
   head: {fileID: 6865764754176517803}
   muzzle: {fileID: 3406333705768305060}
+  isLockOn: 0
+  targetList: []
+  towerType: 0

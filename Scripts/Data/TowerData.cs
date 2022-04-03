@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerData
 {
-    public int id, checkRadius, cost,hotKey;
+    public int id, checkRadius, cost,hotKey,atk;
     public float atkCD;
-    public string name, res, bulletRes;
+    public string name, res, bulletRes, imgRes;
 }

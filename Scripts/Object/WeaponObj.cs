@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WeaponObj : MonoBehaviour
 {
-
     public E_WeaponType type;
     // Start is called before the first frame update
     void Start()
@@ -14,5 +13,7 @@ public class WeaponObj : MonoBehaviour
             Player.Instance.SetFirePos(transform.GetChild(i));
         }
         Player.Instance.SetWeaponType(type);
+        print("角色名字: " + Player.Instance.name);
+        print("角色Type: " + Player.Instance.weaponType);
     }
 }

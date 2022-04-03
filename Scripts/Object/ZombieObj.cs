@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ZombieObj : MonoBehaviour
 {
@@ -12,17 +13,20 @@ public class ZombieObj : MonoBehaviour
     public int HP, maxHP, atk,reward;
     float moveSpeed, atkCD, remainAtkCD;
 
-    public float checkRadius, damageRadius, attackRange;
+    public float checkRadius, damageRadius, attackRange, healthBarShowTime = 5f;
     bool isDead, toPlayer, toZone, attacking;
 
     Transform target;
-    public Transform attackCenter;
+    public Transform attackCenter, healthBarPos;
     Animator anim;
+    GameObject healthBar;
+    Canvas healthBarCanvas;
 
     NavMeshAgent agent;
     // Start is called before the first frame update
     void Start()
     {
+        healthBarCanvas = GameObject.Find("HealthBarCanvas").GetComponent<Canvas>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         target = GameObject.Find("ProtectZone").transform;
@@ -33,6 +37,7 @@ public class ZombieObj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Battle Code
         if (isDead)
             return;
 
@@ -59,6 +64,7 @@ public class ZombieObj : MonoBehaviour
         }
 
         remainAtkCD -= Time.deltaTime;
+
         //检测是否有目标进入攻击范围，是否冷却完成，是则进入攻击状态；
         foreach (Collider coll in Physics.OverlapSphere(transform.position, attackRange))
         {
@@ -76,6 +82,22 @@ public class ZombieObj : MonoBehaviour
         //设置移动动画；
         moveSpeed = agent.speed;
         anim.SetFloat("MoveSpeed", moveSpeed);
+        #endregion
+
+        #region HealthBar Code
+        healthBarShowTime -= Time.deltaTime;
+        if (healthBarShowTime <= 0)
+        {
+            healthBar.SetActive(false);
+        }
+        #endregion
+    }
+
+    private void LateUpdate()
+    {
+        healthBar.transform.position = healthBarPos.position;
+        healthBar.transform.forward = Camera.main.transform.forward;
+        healthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = (float)HP / maxHP;
     }
 
     public void GetHurt(int damage)//受伤的方法；
@@ -85,9 +107,9 @@ public class ZombieObj : MonoBehaviour
             return;
 
         //没有死亡，则判定伤害；
-        print("ZombieObj打印内容：" + damage);
         HP -= damage;
-        print("ZombieObj打印内容：" + HP);
+        healthBar.SetActive(true);
+        healthBarShowTime = 5;
         //当血量归零时，进入死亡状态；
         if (HP <= 0)
         {
@@ -100,7 +122,8 @@ public class ZombieObj : MonoBehaviour
             agent.isStopped = true;
             anim.SetBool("IsDead", isDead);//死亡后摧毁物体；
             GameManager.Instance.ReduceZombieAmount();
-            Destroy(gameObject, 4);
+            Destroy(healthBar, 3);
+            Destroy(gameObject, 3);
         }
     }
 
@@ -125,6 +148,8 @@ public class ZombieObj : MonoBehaviour
         reward = data.reward;
         moveSpeed = data.moveSpeed;
         atkCD = data.atkCD;
+        healthBar = Instantiate(Resources.Load<GameObject>("Prefabs/HealthBar"),healthBarCanvas.transform);
+        healthBar.gameObject.SetActive(false);
     }
 
     private void OnDrawGizmos()

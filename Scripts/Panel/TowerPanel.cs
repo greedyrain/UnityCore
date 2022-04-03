@@ -35,7 +35,6 @@ public class TowerPanel : BasePanel
         {
             TowerButtonObj towerButtonObj = Instantiate(Resources.Load<TowerButtonObj>("Prefabs/TowerBtnObj"), scrollRect.content);
             towerButtonObj.Init(setPos, GameDataManager.Instance.TowersData[i]);
-            print(setPos.name);
         }
     }
 }

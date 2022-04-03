@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     Ray cameraRay;
     RaycastHit hitInfo;
     List<Transform> firePosList = new List<Transform>();
-    public E_WeaponType weaponType = new E_WeaponType();
+    public E_WeaponType weaponType;
 
     private void Awake()
     {
@@ -99,7 +99,14 @@ public class Player : MonoBehaviour
     //刀攻击触发的事件；
     public void KnifeEvent()
     {
-        ProtectZone.Instance.GetHurt(10);
+        Collider[] colliders = Physics.OverlapSphere(weaponContainer.position, 1f);
+        foreach(Collider coll in colliders)
+        {
+            if (coll.CompareTag("Enemy"))
+            {
+                coll.GetComponent<ZombieObj>().GetHurt(GameDataManager.Instance.WeaponsData[id-1].atk);
+            }
+        }
     }
 
     public void GrenadeShootEvent()
@@ -107,16 +114,17 @@ public class Player : MonoBehaviour
         //生成子弹
         foreach (Transform pos in firePosList)
         {
-            GameObject bullet = new GameObject();
+            BulletObj bullet = new BulletObj();
             switch (weaponType)
             {
                 case E_WeaponType.Grenade:
-                    bullet = Instantiate(Resources.Load<GameObject>("Bullet/Grenade"));
+                    bullet = Instantiate(Resources.Load<BulletObj>("Bullet/Grenade"));
                     break;
                 case E_WeaponType.Bullet:
-                    bullet = Instantiate(Resources.Load<GameObject>("Bullet/Grenade"));
+                    bullet = Instantiate(Resources.Load<BulletObj>("Bullet/Bullet"));
                     break;
             }
+            bullet.SetBulletOwner(gameObject);
             bullet.transform.position = pos.position;//设置子弹的初始位置
             cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, Input.mousePosition.z));//创建屏幕中心发射出的射线；
             if (Physics.Raycast(cameraRay, out hitInfo, 1000))//进行射线检测，如果碰到物体，则让子弹朝着物体前进；
@@ -138,7 +146,7 @@ public class Player : MonoBehaviour
                     bullet = Instantiate(Resources.Load<GameObject>("Bullet/Grenade"));
                     break;
                 case E_WeaponType.Bullet:
-                    bullet = Instantiate(Resources.Load<GameObject>("Bullet/Grenade"));
+                    bullet = Instantiate(Resources.Load<GameObject>("Bullet/Bullet"));
                     break;
             }
             bullet.transform.position = pos.position;//设置子弹的初始位置
@@ -180,5 +188,10 @@ public class Player : MonoBehaviour
     public void SetWeaponType(E_WeaponType type)
     {
         weaponType = type;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(weaponContainer.position, 1f);
     }
 }

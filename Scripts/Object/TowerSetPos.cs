@@ -15,7 +15,6 @@ public class TowerSetPos : MonoBehaviour
             TowerPanel towerPanel = UIManager.Instance.ShowPanel<TowerPanel>();
             towerPanel.SetTowerPos(this);
             towerPanel.CreateButton();
-            print("In");
         }
     }
 
@@ -24,7 +23,6 @@ public class TowerSetPos : MonoBehaviour
         if (other.CompareTag("Player") && other.GetComponent<Player>().id == 1)
         {
             UIManager.Instance.HidePanel<TowerPanel>();
-            print("Out");
         }
     }
 
@@ -36,8 +34,8 @@ public class TowerSetPos : MonoBehaviour
     public void SetTower(int id)
     {
         //根据id创建炮塔。id由按钮传来；
-        print(id + "号炮塔被建造");
-        Instantiate(Resources.Load<GameObject>(GameDataManager.Instance.TowersData[id - 1].res),transform.position,transform.rotation);
+        TowerObj tower = Instantiate(Resources.Load<TowerObj>(GameDataManager.Instance.TowersData[id - 1].res),transform.position,transform.rotation);
+        tower.Init(id);
         Destroy(gameObject);
     }
 }

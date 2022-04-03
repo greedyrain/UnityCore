@@ -274,6 +274,7 @@ MonoBehaviour:
   button: {fileID: 7555051408360982290}
   hotKey: {fileID: 7555051409101261867}
   cost: {fileID: 7555051408078723015}
+  preview: {fileID: 7555051408360982289}
 --- !u!1 &7555051409101261909
 GameObject:
   m_ObjectHideFlags: 0

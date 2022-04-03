@@ -1251,6 +1251,7 @@ Transform:
   - {fileID: 7685272364938038294}
   - {fileID: 7685272364938150242}
   - {fileID: 7685272364938080602}
+  - {fileID: 5508226173837800052}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1298,7 +1299,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1326,10 +1327,12 @@ MonoBehaviour:
   HP: 0
   maxHP: 0
   atk: 0
+  reward: 0
   checkRadius: 10
   damageRadius: 0.5
   attackRange: 2
   attackCenter: {fileID: 7685272364938101846}
+  healthBarPos: {fileID: 5508226173837800052}
 --- !u!1 &7685272364938303290
 GameObject:
   m_ObjectHideFlags: 0
@@ -4517,3 +4520,34 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.46817476, y: 0.025399763, z: -0.0011244267}
     m_Extent: {x: 0.18764108, y: 0.14144649, z: 0.105592944}
   m_DirtyAABB: 0
+--- !u!1 &7958435356980191310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5508226173837800052}
+  m_Layer: 7
+  m_Name: HealthBarPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5508226173837800052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7958435356980191310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.65, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7685272364938043338}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

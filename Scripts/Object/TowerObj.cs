@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum E_TowerType { Bullet,Grenade,Arrow}
 public class TowerObj : MonoBehaviour
 {
-    int id, checkRadius, cost;
+    public int id, checkRadius, cost;
     float atkCD, remainAtkCD;
     string res, bulletRes;
     public Transform head, muzzle;
     public bool isLockOn;
     public List<Transform> targetList = new List<Transform>();
     Transform target;
+    public E_TowerType towerType;
 
     private void Start()
     {
-        Init(1);
+
     }
 
     private void Update()
@@ -78,9 +80,21 @@ public class TowerObj : MonoBehaviour
         if (remainAtkCD <= 0)
         {
             remainAtkCD = atkCD;
-            GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletRes));
+            BulletObj bullet = Instantiate(Resources.Load<BulletObj>(bulletRes));
+            bullet.SetBulletOwner(gameObject);
             bullet.transform.position = muzzle.position;
             bullet.transform.LookAt(target.position);
+            switch (towerType)
+            {
+                case E_TowerType.Bullet:
+                    Destroy(Instantiate(Resources.Load<GameObject>("Effect/Muzzle"),muzzle.position,muzzle.rotation),0.3f);
+                    break;
+                case E_TowerType.Grenade:
+                    break;
+                case E_TowerType.Arrow:
+                    break;
+            }
+
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletObj : MonoBehaviour
 {
-    Player bulletOwner;
+    GameObject bulletOwner;
     public float moveSpeed;
     int damage;
     public E_WeaponType type;
@@ -15,8 +15,6 @@ public class BulletObj : MonoBehaviour
         audioSource.mute = !GameDataManager.Instance.MusicData.isSoundOn;
         audioSource.volume = GameDataManager.Instance.MusicData.soundVolume;
         audioSource.Play();
-        bulletOwner = FindObjectOfType<Player>();//获取场景中的Player脚本，通过脚本获得ID，去调取枪械的伤害；
-        damage = GameDataManager.Instance.WeaponsData[bulletOwner.id - 1].atk;
         Destroy(gameObject, 3);
         //子弹的正方向，看向由屏幕中心点射出的一条线；
     }
@@ -33,7 +31,6 @@ public class BulletObj : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             //获得击中的Enemy身上的脚本，执行掉血；
-            print("BulletObj打印内容：" + damage);
             other.GetComponent<ZombieObj>().GetHurt(damage);
         }
         if (!(other.CompareTag("Player") || other.CompareTag("ProtectZone") || other.CompareTag("Weapon")))
@@ -41,6 +38,9 @@ public class BulletObj : MonoBehaviour
             if (type == E_WeaponType.Grenade)
             {
                 GameObject eff = Instantiate(Resources.Load<GameObject>("Effect/ExplosionEffect"));
+                AudioSource effAudioSource = eff.GetComponent<AudioSource>();
+                effAudioSource.mute = !GameDataManager.Instance.MusicData.isSoundOn;
+                effAudioSource.volume = GameDataManager.Instance.MusicData.soundVolume;
                 eff.transform.position = transform.position;
                 Destroy(eff, 2);
                 foreach (Collider collider in Physics.OverlapSphere(eff.transform.position, 5))
@@ -53,6 +53,20 @@ public class BulletObj : MonoBehaviour
             }
             Destroy(gameObject);
         }
+    }
 
+    public void SetBulletOwner(GameObject owner)
+    {
+        switch (owner.tag)
+        {
+            case "Player":
+                bulletOwner = owner;
+                damage = GameDataManager.Instance.WeaponsData[owner.GetComponent<Player>().id - 1].atk;
+                break;
+            case "Tower":
+                bulletOwner = owner;
+                damage = GameDataManager.Instance.TowersData[owner.GetComponent<TowerObj>().id - 1].atk;
+                break;
+        }
     }
 }
