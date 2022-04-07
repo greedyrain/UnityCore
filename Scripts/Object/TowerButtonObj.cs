@@ -20,20 +20,24 @@ public class TowerButtonObj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //按钮出现时，先获得ID和hotkey，之后当按下hotkey时，会判断金钱是否足够，如果够则创建，不够则没有反馈；
-        if (Input.inputString == $"{hotKey.text}")
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (GameDataManager.Instance.InGameData.inGameMoney >= GameDataManager.Instance.TowersData[id - 1].cost)
-            {
-                GameDataManager.Instance.InGameData.inGameMoney -= GameDataManager.Instance.TowersData[id - 1].cost;
-                setPos.SetTower(id);
-                UIManager.Instance.HidePanel<TowerPanel>();
-            }
-            else
-            {
-
-            }
+            print(KeyCode.Alpha1.ToString());
         }
+        CheckKeyCode(KeyCode.Alpha1);
+        CheckKeyCode(KeyCode.Alpha2);
+        CheckKeyCode(KeyCode.Alpha3);
+        CheckKeyCode(KeyCode.Alpha4);
+        //按钮出现时，先获得ID和hotkey，之后当按下hotkey时，会判断金钱是否足够，如果够则创建，不够则没有反馈；
+        //if (Input.inputString == $"{hotKey.text}")
+        //{
+        //    if (GameDataManager.Instance.InGameData.inGameMoney >= GameDataManager.Instance.TowersData[id - 1].cost)
+        //    {
+        //        GameDataManager.Instance.InGameData.inGameMoney -= GameDataManager.Instance.TowersData[id - 1].cost;
+        //        setPos.SetTower(id);
+        //        UIManager.Instance.HidePanel<TowerPanel>();
+        //    }
+        //}
     }
 
     public void Init(TowerSetPos setPos, TowerData data)
@@ -47,8 +51,21 @@ public class TowerButtonObj : MonoBehaviour
             UIManager.Instance.HidePanel<TowerPanel>();
         });
         //设置快捷键的文本和花费文本；
-        hotKey.text = data.hotKey.ToString();
+        hotKey.text = data.hotKey;
         cost.text = data.cost.ToString();
         preview.sprite = Resources.Load<Sprite>($"{data.imgRes}");
+    }
+
+    public void CheckKeyCode(KeyCode keyCode)
+    {
+        if (Input.GetKeyDown(keyCode) && keyCode.ToString() == hotKey.text)
+        {
+            if (GameDataManager.Instance.InGameData.inGameMoney >= GameDataManager.Instance.TowersData[id - 1].cost)
+            {
+                GameDataManager.Instance.InGameData.inGameMoney -= GameDataManager.Instance.TowersData[id - 1].cost;
+                setPos.SetTower(id);
+                UIManager.Instance.HidePanel<TowerPanel>();
+            }
+        }
     }
 }
